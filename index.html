@@ -119,7 +119,73 @@
         display();
         count();
       }
+     
 
+      function display(){
+        const container = document.getElementById("card");
+        
+        container.innerHTML = "";
+
+        const filteredJobs = currentTab === "all" ? jobs : jobs.filter(job => job.status === currentTab);
+
+        document.getElementById("availableCount").innerText = filteredJobs.length + " Jobs";
+
+        if(filteredJobs.length === 0){
+          container.innerHTML = `
+            <div class="text-center justify-center mt-10 text-gray-500">
+              <div class="flex justify-center items-center">
+              <img class="" src="img/assignment_7959593 1.png" alt="delete">
+
+              </div>
+
+              <p class="text-xl font-bold">No jobs available</p>
+              <p class=" text-gray-500" >Check back soon for new job opportunities।</p>
+            </div>
+          `;
+          return;
+        }
+
+        filteredJobs.forEach(job => {
+          let statusClasses = {
+            "all": "bg-gray-200 text-gray-800",
+            "Rejected": "bg-red-100 text-red-700",
+            "Interview": "bg-green-100 text-green-700",
+
+          };
+
+          container.innerHTML += `
+            <div class="relative bg-white flex flex-col p-4 rounded-lg shadow gap-4 hover:shadow-lg transition">
+
+              <div class="absolute top-3 right-3 ">
+                <button onclick="deleteJob(${job.id})" class=" p-1 hover:bg-red-600  :: hover:text-white rounded-full transition">
+                  <img class="h-10 w-10" src="img/Trash.png" alt="delete">
+                </button>
+              </div>
+
+              <div>
+                <h1 class="font-bold text-lg sm:text-xl ">${job.company}</h1>
+                <p class="text-gray-700">${job.position}</p>
+                <p class=" py-7 text-gray-500 text-sm sm:text-base">${job.Renote}</p>
+                <span class=" uppercase px-3 py-2 rounded ${statusClasses[job.status] || 'bg-gray-200 text-gray-800'} bg-[#EEF4FF] shadow-2xl text-sm font-semibold">
+                  ${job.status}
+                </span>
+                <p class="mt-2  text-sm sm:text-base">${job.description}</p>
+
+                <div class="flex flex-wrap gap-2 sm:gap-3 pt-3">
+                  <button onclick="interview(${job.id})" class="border border-green-500 text-green-500 px-3 py-1 rounded hover:bg-green-500 hover:text-white transition">INTERVIEW</button>
+                  <button onclick="rejected(${job.id})" class=" border border-red-500 text-red-500 px-3 py-1 rounded hover:bg-red-500 hover:text-white transition">REJECTED</button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      display();
+      count();
     </script>
+
+    
+    
   </body>
 </html>
