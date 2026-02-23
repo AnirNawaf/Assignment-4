@@ -89,6 +89,37 @@
         },
 
       ];
+
+      function showTab(tab){
+        currentTab = tab;
+        display();
+      }
+
+      function count(){
+        const total = jobs.length;
+        const interview = jobs.filter(job => job.status === "Interview").length;
+        const rejected = jobs.filter(job => job.status === "Rejected").length;
+        document.getElementById("intvCount").innerText = interview;
+        document.getElementById("rejCount").innerText = rejected;
+        document.getElementById("totalCount").innerText = total;
+      }
+       function deleteJob(id){
+        jobs = jobs.filter(job => job.id !== id);
+        display();
+        count();
+      }
+
+      function interview(id){
+        jobs.find(job => job.id === id).status = "Interview";
+        display();
+        count();
+      }
+      function rejected(id){
+        jobs.find(job => job.id === id).status = "Rejected";
+        display();
+        count();
+      }
+
     </script>
   </body>
 </html>
