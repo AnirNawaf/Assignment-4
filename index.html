@@ -128,7 +128,14 @@
 
         const filteredJobs = currentTab === "all" ? jobs : jobs.filter(job => job.status === currentTab);
 
-        document.getElementById("availableCount").innerText = filteredJobs.length + " Jobs";
+       const total = jobs.length;
+
+       const showing = filteredJobs.length;
+
+       document.getElementById("availableCount").innerText = showing + " of " + total + " Jobs";
+
+      
+
 
         if(filteredJobs.length === 0){
           container.innerHTML = `
@@ -164,7 +171,7 @@
 
               <div>
                 <h1 class="font-bold text-lg sm:text-xl ">${job.company}</h1>
-                <p class="text-gray-700">${job.position}</p>
+                <p class="text-gray-700 mt-6">${job.position}</p>
                 <p class=" py-7 text-gray-500 text-sm sm:text-base">${job.Renote}</p>
                 <span class=" uppercase px-3 py-2 rounded ${statusClasses[job.status] || 'bg-gray-200 text-gray-800'} bg-[#EEF4FF] shadow-2xl text-sm font-semibold">
                   ${job.status}
